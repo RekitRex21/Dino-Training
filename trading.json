@@ -1,0 +1,37 @@
+[
+  {
+    "instruction": "Execute a trade on Binance",
+    "input": "BTC/USDT, buy, 0.01 BTC",
+    "output": "1) Check paper_mode status 2) Get current price 3) Calculate position size 4) Execute order via Binance API 5) Log trade to history 6) Send Telegram notification"
+  },
+  {
+    "instruction": "What is the aggressive scalper strategy?",
+    "input": "",
+    "output": "1-min SMA5/10 crossover with 80% position allocation. Entry: SMA5 crosses above SMA10. Exit: SMA5 crosses below SMA10 or 2% profit. Tight stops, quick trades."
+  },
+  {
+    "instruction": "Run the CryptoBotV2",
+    "input": "",
+    "output": "cd crypto_trader_bot_v2 && python crypto_bot_v2_simple.py && python telegram_trading_update.py. Uses 9/21 EMA crossover with RSI filter."
+  },
+  {
+    "instruction": "What is the scalper bot strategy?",
+    "input": "5-min timeframe",
+    "output": "EMA3/9 crossover + volume spike detection. Entry: EMA3 crosses above EMA9 + volume > 2x average. Exit: EMA3 crosses below EMA9 or 1.5% profit target."
+  },
+  {
+    "instruction": "How do I check bot status?",
+    "input": "",
+    "output": "Run: cd crypto_trader_bot_v2 && python telegram_status.py. Shows: account balance, open positions, recent trades, P&L, last signal time."
+  },
+  {
+    "instruction": "What is paper trading mode?",
+    "input": "",
+    "output": "Paper trading uses simulated $100,000 balance with fake orders. No real money risk. Set PAPER_MODE=true in environment or config. All bots run in paper mode by default."
+  },
+  {
+    "instruction": "Set up Alpaca API for trading",
+    "input": "Get API keys",
+    "output": "1) Sign up at alpaca.markets 2) Generate API key and secret 3) Add to .env: ALPACA_KEY=xxx ALPACA_SECRET=xxx 4) Set PAPER_MODE=true for testing"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "instruction": "Analyze this security scan report",
+    "input": "clawhub: 51 files, 5 DANGER, 46 SAFE",
+    "output": "DANGER files found: AGENTS.md (Credential_Theft), README.md (Memory_Poison), skill-format.md (Credential_Theft), soul-format.md (dangerous_ops, Memory_Poison), spec.md (Memory_Poison). These are documentation references, not actual malicious code. False positives from docs mentioning .env and SOUL.md patterns."
+  },
+  {
+    "instruction": "What did the local skills scan find?",
+    "input": "73 files scanned on Rex's PC",
+    "output": "5 DANGER files (all false positives), 68 SAFE. Found: .env references in documentation, MEMORY.md mentions in skill docs. PC is clean!"
+  },
+  {
+    "instruction": "Summarize the eval-marketplace scan",
+    "input": "JeredBlu/eval-marketplace repository",
+    "output": "9 files scanned: 1 DANGER (safe_mcp_examples.md with .env refs in docs), 2 HIGH (attack_patterns.md has __import__, safe_skill_examples.md has exec/eval - these are for testing detection), 6 SAFE."
+  },
+  {
+    "instruction": "What is the workflow for scanning a repo safely?",
+    "input": "",
+    "output": "1) git clone on host (has network) 2) docker run --network none -v repo:/repo dino-scan-scanner 3) Check results for DANGER/HIGH 4) Verify hashes 5) Share report with --repo-url flag 6) Remove temp clone"
+  },
+  {
+    "instruction": "How do I interpret scan results?",
+    "input": "DANGER: 16, HIGH: 0, SAFE: 64",
+    "output": "Look at the findings: Credential_Theft = .env references (often docs). Memory_Poison = SOUL.md/MEMORY.md mentions (often docs). dangerous_ops = format, rm -rf (check if actual code). HIGH = __import__, exec, eval (check context)."
+  },
+  {
+    "instruction": "What makes a skill scan a false positive?",
+    "input": "SKILL.md shows .env",
+    "output": "If .env appears in documentation explaining environment variables, it's a false positive. Look for: 'load from .env', 'export .env', 'reference .env file'. Actual theft would have: os.getenv('.env'),读取.env file contents, sending .env anywhere."
+  },
+  {
+    "instruction": "How do I report a security issue found by DinoScan?",
+    "input": "Found malicious code in a skill",
+    "output": "1) Copy the SHA-256 hash from the report 2) Note the file path and line numbers 3) Open an issue on the repo 4) Optionally share on ClawHub with the DinoScan report"
+  }
+]
