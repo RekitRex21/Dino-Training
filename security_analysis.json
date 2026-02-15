@@ -5,6 +5,31 @@
     "output": "DANGER files found: AGENTS.md (Credential_Theft), README.md (Memory_Poison), skill-format.md (Credential_Theft), soul-format.md (dangerous_ops, Memory_Poison), spec.md (Memory_Poison). These are documentation references, not actual malicious code. False positives from docs mentioning .env and SOUL.md patterns."
   },
   {
+    "instruction": "What is Living off the Land (LotL) attack?",
+    "input": "How do attackers use system tools?",
+    "output": "LotL attacks use built-in system tools (curl, wget, powershell, certutil) instead of suspicious libraries. Instead of importing 'requests', malware calls subprocess.run(['curl', '-X', 'POST', ...]). This bypasses scanners that only check for malicious imports."
+  },
+  {
+    "instruction": "How does DinoScan detect LotL attacks?",
+    "input": "subprocess.run pattern detection",
+    "output": "DinoScan scans for: subprocess.run.*curl, subprocess.run.*wget, subprocess.run.*certutil, subprocess.run.*powershell, os.system.*curl, pty.spawn.*bash. These patterns detect when Python uses system tools for exfiltration."
+  },
+  {
+    "instruction": "What is DNS tunneling in malware?",
+    "input": "Explain DNS exfiltration",
+    "output": "DNS tunneling encodes stolen data into DNS queries. Instead of sending data to a webhook, attacker uses: stolen-data.attacker.com. The DNS lookup carries the payload. DinoScan detects: *.attacker.com, *.exfil.net patterns."
+  },
+  {
+    "instruction": "How do attackers use Telegram for exfiltration?",
+    "input": "Telegram Bot API for data theft",
+    "output": "Many scanners check Discord webhooks but miss Telegram. Attackers use: api.telegram.org/bot<token>/sendMessage. DinoScan now detects: api.telegram.org patterns in HTTP requests."
+  },
+  {
+    "instruction": "What is polymorphism in malware?",
+    "input": "How do viruses change their code?",
+    "output": "Polymorphic malware rewrites itself on each execution using LLMs. They add 'dead code' (useless math, print statements) to dilute malicious density. Detection requires entropy analysis - high randomness suggests encrypted/packed payloads."
+  },
+  {
     "instruction": "What did the local skills scan find?",
     "input": "73 files scanned on Rex's PC",
     "output": "5 DANGER files (all false positives), 68 SAFE. Found: .env references in documentation, MEMORY.md mentions in skill docs. PC is clean!"
@@ -33,5 +58,15 @@
     "instruction": "How do I report a security issue found by DinoScan?",
     "input": "Found malicious code in a skill",
     "output": "1) Copy the SHA-256 hash from the report 2) Note the file path and line numbers 3) Open an issue on the repo 4) Optionally share on ClawHub with the DinoScan report"
+  },
+  {
+    "instruction": "What is steganography in data theft?",
+    "input": "Hiding data in images",
+    "output": "Steganography hides stolen data inside image files. Attacker encodes credentials into a PNG's pixel data, then uploads to an image host. DinoScan detects: PIL.Image.open patterns, base64 image encoding."
+  },
+  {
+    "instruction": "How does DinoScan detect dependency confusion attacks?",
+    "input": "Malicious pip packages",
+    "output": "Attackers publish typosquatted packages (like 'pydino-utils' instead of 'pydantic-utils'). DinoScan can run a Dependency Audit - scan requirements.txt against known-good whitelist or ClawHavoc kill-list."
   }
 ]
